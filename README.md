@@ -15,7 +15,7 @@ rails代码行数(共享率)统计工具
   
         $ codelline -h
   
-        Usage:./gcl [type options] [file options] [regex optios] [log options]
+        Usage:codeline [type options] [file options] [regex optios] [log options]
 
         Gcl options:
           -t, --type TYPE                  set the type for statistics,like: rails file.

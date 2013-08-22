@@ -1,3 +1,4 @@
+require File.expand_path("../version", __FILE__)
 require 'optparse'
 
 module Gcl
@@ -5,7 +6,7 @@ module Gcl
 		def parse!(args)
 			options = {}
 			opt_parser = OptionParser.new do |opts|
-				opts.banner = "Usage:./gcl [type options] [module options] [file options] [regex optios]"
+				opts.banner = "Usage:codeline [type options] [file options] [regex optios] [log options]"
 
 				opts.separator ""
 				opts.separator "Gcl options:"
@@ -15,19 +16,19 @@ module Gcl
 					options[:type] = value
 				end
 
-				options[:module] = "all"
-				opts.on("-m MODULE", "--module MODULE", "set the statistic module if programm is rails,like: all model controller view spec test lib.") do |value|
-					options[:module] = value
-				end
-
 				options[:file] = "."
 				opts.on("-f FILEPATH", "--filepath FILEPATH", "set the file path which want to statistic") do |value|
 					options[:file] = value
 				end
 
-				options[:regex] = "*.*"
+				options[:regex] = ""
 				opts.on("-r REGEX", "--regex REGEX", "set the file type which want to statistic,like: *.rb *.html.") do |value|
 					options[:regex] = value
+				end
+				
+				options[:log] = false
+				opts.on("-l LOG", "--log LOG", "set the log with output,like: false true.") do |value|
+					options[:log] = value
 				end
 
 				opts.separator ""
@@ -35,7 +36,10 @@ module Gcl
 
 				opts.on_tail("-h", "--help", "Show this message") do
 					puts opts
-
+					exit
+				end
+				opts.on_tail("-v", "--version", "Show this version") do
+					puts Gcl::VERSION
 					exit
 				end
 			end
